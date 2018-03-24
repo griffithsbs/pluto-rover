@@ -21,8 +21,28 @@ namespace PlutoRover
             }
         }
 
+        internal static Direction TurnClockwise(this Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.N:
+                    return Direction.E;
+                case Direction.E:
+                    return Direction.S;
+                case Direction.S:
+                    return Direction.W;
+                case Direction.W:
+                    return Direction.N;
+                default:
+                    throw new ArgumentException($"Unrecognised direction {direction}");
+            }
+        }
+
         internal static Direction TurnAnticlockwise(this Direction direction)
         {
+            // TODO we could implement this by turning clockwise three times.
+            // The way we're doing it is more verbose but potentially much more efficient,
+            // depending on how the rover hardware implements the turn operation
             switch (direction)
             {
                 case Direction.N:

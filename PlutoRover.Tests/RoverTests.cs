@@ -121,11 +121,29 @@ namespace PlutoRover.Tests
         }
 
         [Test]
+        public void GivenARightCommandRobotDoesNotMoveFromSpot()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 0, Direction.N));
+
+            testSubject.Move("R").Should().StartWith("0, 0");
+        }
+
+        [Test]
+        public void GivenARightCommandRobotTurnsClockwise()
+        {
+            Rover testSubject = new Rover(Position.Of(5, 5, Direction.N));
+
+            testSubject.Move("R").Should().EndWith("E");
+            testSubject.Move("R").Should().EndWith("S");
+            testSubject.Move("RRR").Should().EndWith("E");
+        }
+
+        [Test]
         public void GivenMultipleCommandsExecutesEachOneInOrder()
         {
             Rover testSubject = new Rover(Position.Of(5, 5, Direction.N));
 
-            testSubject.Move("LFBFBFBFBBL").Should().Be("6, 5, S");
+            testSubject.Move("RFBFBFBFBBL").Should().Be("4, 5, N");
         }
 
     }

@@ -37,6 +37,11 @@ namespace PlutoRover
             return new Position(X, Y, Heading.TurnAnticlockwise());
         }
 
+        internal Position TurnRight()
+        {
+            return new Position(X, Y, Heading.TurnClockwise());
+        }
+
         private Position Move(Direction assumedHeading)
         {
             switch (assumedHeading)
