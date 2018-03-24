@@ -22,6 +22,15 @@ namespace PlutoRover.Tests
             testSubject.Move("F").Should().Be("0, 1, N");
             testSubject.Move("F").Should().Be("0, 2, N");
             testSubject.Move("F").Should().Be("0, 3, N");
+            testSubject.Move("FFF").Should().Be("0, 6, N");
+        }
+
+        [Test]
+        public void GivenMultipleCommandsExecutesEachOneInOrder()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 0, Direction.N));
+
+            testSubject.Move("FFFF").Should().Be("0, 4, N");
         }
 
     }

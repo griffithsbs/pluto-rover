@@ -11,19 +11,27 @@ namespace PlutoRover
             _position = startingPosition;
         }
 
-        /// <param name="command">The command determining the movement the rover should make</param>
+        /// <param name="command">The command determining the movement orders for the rover</param>
         /// <returns>The rover's position after following the command</returns>
         public string Move(string command)
         {
+            foreach (var c in command)
+            {
+                ExecuteOrder(c);
+            }
+            return ReportPosition();
+        }
+
+        private void ExecuteOrder(char command)
+        {
             switch (command)
             {
-                case "F":
+                case 'F':
                     _position = _position.MoveForward();
                     break;
                 default:
                     throw new NotImplementedException();
             }
-            return _position.ToString();
         }
 
         public string ReportPosition()
