@@ -20,5 +20,23 @@ namespace PlutoRover
                     throw new ArgumentException($"Unrecognised direction {direction}");
             }
         }
+
+        internal static Direction TurnAnticlockwise(this Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.N:
+                    return Direction.W;
+                case Direction.E:
+                    return Direction.N;
+                case Direction.S:
+                    return Direction.E;
+                case Direction.W:
+                    return Direction.S;
+                default:
+                    throw new ArgumentException($"Unrecognised direction {direction}");
+            }
+        }
+
     }
 }

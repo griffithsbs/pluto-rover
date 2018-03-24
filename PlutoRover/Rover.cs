@@ -32,6 +32,9 @@ namespace PlutoRover
                 case 'B':
                     _position = _position.MoveBack();
                     break;
+                case 'L':
+                    _position = _position.TurnLeft();
+                    break;
                 default:
                     throw new NotImplementedException();
             }
