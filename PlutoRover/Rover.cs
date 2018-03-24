@@ -7,6 +7,8 @@ namespace PlutoRover
         private Position _position;
         private Grid _grid;
 
+        private Position _encounteredObstaclePosition = null;
+
         /// <summary>
         /// Create a new Rover with the given starting position within the given grid.
         /// </summary>
@@ -24,22 +26,48 @@ namespace PlutoRover
         {
             foreach (var c in command)
             {
-                ExecuteOrder(c);
+                bool hasEncounteredObstacle = ExecuteOrder(c);
+                if(hasEncounteredObstacle)
+                {
+                    break;
+                }
             }
             return ReportPosition();
         }
 
-        private void ExecuteOrder(char order)
+        /// <summary>
+        /// Execute the given order to update the rover's position
+        /// </summary>
+        /// <param name="order">The order: F, B, L, or R</param>
+        /// <returns>
+        /// True if an obstacle was detected, or false if no obstacle 
+        /// was detected and the order was successfully executed
+        /// </returns>
+        private bool ExecuteOrder(char order)
         {
+            Position originalPosition = _position;
             switch (order)
             {
+                // TODO remove repetition from implementation of F and B orders
                 case 'F':
                     _position = _position.MoveForward();
                     _position = _grid.Wrap(_position);
+                    if(_grid.HasObstacleAt(_position))
+                    {
+                        _encounteredObstaclePosition = _position;
+                        _position = originalPosition;
+                        return true;
+                    }
                     break;
                 case 'B':
                     _position = _position.MoveBack();
                     _position = _grid.Wrap(_position);
+                    if (_grid.HasObstacleAt(_position))
+                    {
+                        _encounteredObstaclePosition = _position;
+                        _position = originalPosition;
+                        return true;
+                    }
                     break;
                 case 'L':
                     _position = _position.TurnLeft();
@@ -50,11 +78,24 @@ namespace PlutoRover
                 default:
                     throw new ArgumentException($"Unrecognised order {order}");
             }
+            return false;
         }
 
         public string ReportPosition()
         {
-            return _position.ToString();
+            string positionReport = _position.ToString();
+            if(_encounteredObstaclePosition != null)
+            {
+                positionReport = $"{positionReport}. {ReportEncounteredObstacle()}";
+            }
+            return positionReport;
+        }
+
+        private string ReportEncounteredObstacle()
+        {
+            string obstacleReport = $"Obstacle found at ({_encounteredObstaclePosition.X}, {_encounteredObstaclePosition.Y})";
+            _encounteredObstaclePosition = null;
+            return obstacleReport;
         }
     }
 }

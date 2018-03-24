@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PlutoRover
 {
@@ -7,16 +9,25 @@ namespace PlutoRover
         private const int STARTING_INDEX = 0;
         private readonly int _width;
         private readonly int _height;
+        private readonly IEnumerable<Tuple<int, int>> _obstacleCoordinates;
 
         /// <summary>
-        /// Create a Grid of width squares x height squares
+        /// Create a Grid of width squares x height squares, with an obstacle located at
+        /// each of the (X, Y) co-ordinates given by obstacleCoordinates
         /// </summary>
         /// <param name="width">The number of columns in the grid</param>
         /// <param name="height">The number of rows in the grid</param>
-        public Grid(int width, int height)
+        /// <param name="obstacleCoordinates">The locations of obstacles in the grid, in (X, Y) pairs</param>
+        public Grid(int width, int height, params Tuple<int, int>[] obstacleCoordinates)
         {
             _width = width;
             _height = height;
+            _obstacleCoordinates = obstacleCoordinates;
+        }
+
+        internal bool HasObstacleAt(Position position)
+        {
+            return _obstacleCoordinates.FirstOrDefault(t => t.Item1 == position.X && t.Item2 == position.Y) != null;
         }
 
         /// <summary>
