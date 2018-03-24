@@ -9,6 +9,11 @@ namespace PlutoRover
         private const int STARTING_INDEX = 0;
         private readonly int _width;
         private readonly int _height;
+        /// <summary>
+        /// The locations of obstacles in the grid, in (X, Y) pairs
+        /// 
+        /// TODO it would be better to have a strongly typed Coordinate model, for readability's sake
+        /// </summary>
         private readonly IEnumerable<Tuple<int, int>> _obstacleCoordinates;
 
         /// <summary>
