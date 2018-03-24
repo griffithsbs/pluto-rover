@@ -57,13 +57,57 @@ namespace PlutoRover.Tests
             testSubject.Move("F").Should().Be("4, 5, W");
             testSubject.Move("FFF").Should().Be("1, 5, W");
         }
-        
-        [Test]
-        public void GivenMultipleCommandsExecutesEachOneInOrder()
-        {
-            Rover testSubject = new Rover(Position.Of(0, 0, Direction.N));
 
-            testSubject.Move("FFFF").Should().Be("0, 4, N");
+        [Test]
+        public void GivenBackCommandWhenFacingNorthMovesSouth()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 9, Direction.N));
+
+            testSubject.Move("B").Should().Be("0, 8, N");
+            testSubject.Move("B").Should().Be("0, 7, N");
+            testSubject.Move("B").Should().Be("0, 6, N");
+            testSubject.Move("BBB").Should().Be("0, 3, N");
+        }
+
+        [Test]
+        public void GivenBackCommandWhenFacingSouthMovesNorth()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 1, Direction.S));
+
+            testSubject.Move("B").Should().Be("0, 2, S");
+            testSubject.Move("B").Should().Be("0, 3, S");
+            testSubject.Move("B").Should().Be("0, 4, S");
+            testSubject.Move("BBB").Should().Be("0, 7, S");
+        }
+
+        [Test]
+        public void GivenBackCommandWhenFacingEastMovesWest()
+        {
+            Rover testSubject = new Rover(Position.Of(8, 5, Direction.E));
+
+            testSubject.Move("B").Should().Be("7, 5, E");
+            testSubject.Move("B").Should().Be("6, 5, E");
+            testSubject.Move("B").Should().Be("5, 5, E");
+            testSubject.Move("BBB").Should().Be("2, 5, E");
+        }
+
+        [Test]
+        public void GivenBackCommandWhenFacingWestMovesEast()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 5, Direction.W));
+
+            testSubject.Move("B").Should().Be("1, 5, W");
+            testSubject.Move("B").Should().Be("2, 5, W");
+            testSubject.Move("B").Should().Be("3, 5, W");
+            testSubject.Move("BBB").Should().Be("6, 5, W");
+        }
+
+        [Test]
+        public void GivenMultipleCommandsExecutesEachOne()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 2, Direction.N));
+
+            testSubject.Move("FBFBFBFBB").Should().Be("0, 1, N");
         }
 
     }

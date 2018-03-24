@@ -8,37 +8,47 @@ namespace PlutoRover
 
         public int Y { get; private set; }
 
-        public Direction Direction { get; private set; }
+        public Direction Heading { get; private set; }
 
-        private Position(int x, int y, Direction direction)
+        private Position(int x, int y, Direction heading)
         {
             X = x;
             Y = y;
-            Direction = direction;
+            Heading = heading;
         }
 
-        public static Position Of(int x, int y, Direction direction)
+        public static Position Of(int x, int y, Direction heading)
         {
-            return new Position(x, y, direction);
+            return new Position(x, y, heading);
         }
 
         internal Position MoveForward()
         {
-            switch (Direction)
+            return Move(Heading);
+        }
+
+        internal Position MoveBack()
+        {
+            return Move(Heading.Opposite());
+        }
+
+        private Position Move(Direction assumedHeading)
+        {
+            switch (assumedHeading)
             {
                 case Direction.N:
-                    return new Position(X, Y + 1, Direction);
+                    return new Position(X, Y + 1, Heading);
                 case Direction.S:
-                    return new Position(X, Y - 1, Direction);
+                    return new Position(X, Y - 1, Heading);
                 case Direction.E:
-                    return new Position(X + 1, Y, Direction);
+                    return new Position(X + 1, Y, Heading);
                 case Direction.W:
-                    return new Position(X - 1, Y, Direction);
+                    return new Position(X - 1, Y, Heading);
                 default:
-                    throw new ArgumentException($"Unrecognised direction {Direction}");
+                    throw new ArgumentException($"Unrecognised direction {assumedHeading}");
             }
         }
 
-        public override string ToString() => $"{X}, {Y}, {Direction}";
+        public override string ToString() => $"{X}, {Y}, {Heading}";
     }
 }

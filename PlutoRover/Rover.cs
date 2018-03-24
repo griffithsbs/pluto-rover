@@ -29,6 +29,9 @@ namespace PlutoRover
                 case 'F':
                     _position = _position.MoveForward();
                     break;
+                case 'B':
+                    _position = _position.MoveBack();
+                    break;
                 default:
                     throw new NotImplementedException();
             }
