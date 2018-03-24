@@ -28,6 +28,8 @@ namespace PlutoRover
             {
                 case Direction.N:
                     return new Position(X, Y + 1, Direction);
+                case Direction.S:
+                    return new Position(X, Y - 1, Direction);
                 default:
                     throw new NotImplementedException();
             }

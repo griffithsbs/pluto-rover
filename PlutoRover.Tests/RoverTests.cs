@@ -26,6 +26,17 @@ namespace PlutoRover.Tests
         }
 
         [Test]
+        public void GivenForwardCommandWhenFacingSouthMovesSouth()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 9, Direction.S));
+
+            testSubject.Move("F").Should().Be("0, 8, S");
+            testSubject.Move("F").Should().Be("0, 7, S");
+            testSubject.Move("F").Should().Be("0, 6, S");
+            testSubject.Move("FFF").Should().Be("0, 3, S");
+        }
+
+        [Test]
         public void GivenMultipleCommandsExecutesEachOneInOrder()
         {
             Rover testSubject = new Rover(Position.Of(0, 0, Direction.N));
