@@ -37,6 +37,28 @@ namespace PlutoRover.Tests
         }
 
         [Test]
+        public void GivenForwardCommandWhenFacingEastMovesEast()
+        {
+            Rover testSubject = new Rover(Position.Of(1, 5, Direction.E));
+
+            testSubject.Move("F").Should().Be("2, 5, E");
+            testSubject.Move("F").Should().Be("3, 5, E");
+            testSubject.Move("F").Should().Be("4, 5, E");
+            testSubject.Move("FFF").Should().Be("7, 5, E");
+        }
+
+        [Test]
+        public void GivenForwardCommandWhenFacingWestMovesWest()
+        {
+            Rover testSubject = new Rover(Position.Of(7, 5, Direction.W));
+
+            testSubject.Move("F").Should().Be("6, 5, W");
+            testSubject.Move("F").Should().Be("5, 5, W");
+            testSubject.Move("F").Should().Be("4, 5, W");
+            testSubject.Move("FFF").Should().Be("1, 5, W");
+        }
+        
+        [Test]
         public void GivenMultipleCommandsExecutesEachOneInOrder()
         {
             Rover testSubject = new Rover(Position.Of(0, 0, Direction.N));

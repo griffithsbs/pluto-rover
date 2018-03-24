@@ -30,8 +30,12 @@ namespace PlutoRover
                     return new Position(X, Y + 1, Direction);
                 case Direction.S:
                     return new Position(X, Y - 1, Direction);
+                case Direction.E:
+                    return new Position(X + 1, Y, Direction);
+                case Direction.W:
+                    return new Position(X - 1, Y, Direction);
                 default:
-                    throw new NotImplementedException();
+                    throw new ArgumentException($"Unrecognised direction {Direction}");
             }
         }
 
