@@ -14,5 +14,15 @@ namespace PlutoRover.Tests
             new Rover(Position.Of(42, 42, Direction.W)).ReportPosition().Should().Be("42, 42, W");
         }
 
+        [Test]
+        public void GivenForwardCommandWhenFacingNorthMovesNorth()
+        {
+            Rover testSubject = new Rover(Position.Of(0, 0, Direction.N));
+
+            testSubject.Move("F").Should().Be("0, 1, N");
+            testSubject.Move("F").Should().Be("0, 2, N");
+            testSubject.Move("F").Should().Be("0, 3, N");
+        }
+
     }
 }

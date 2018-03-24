@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlutoRover
 {
@@ -22,6 +20,17 @@ namespace PlutoRover
         public static Position Of(int x, int y, Direction direction)
         {
             return new Position(x, y, direction);
+        }
+
+        internal Position MoveForward()
+        {
+            switch (Direction)
+            {
+                case Direction.N:
+                    return new Position(X, Y + 1, Direction);
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         public override string ToString() => $"{X}, {Y}, {Direction}";
